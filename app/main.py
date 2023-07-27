@@ -54,22 +54,3 @@ def create_item_for_person(
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
-
-
-from app.db import database, User
-
-
-# @app.on_event("startup")
-# async def startup():
-#     if not database.is_connected:
-#         await database.connect()
-#     # create a dummy entry
-#     await models.Person.objects.get_or_create(email="test1@test2.com", hashed_password="fake_hashed_password")
-
-   
-
-# @app.on_event("shutdown")
-# async def shutdown():
-#     if database.is_connected:
-#         await database.disconnect()
-

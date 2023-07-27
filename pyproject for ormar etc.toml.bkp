@@ -2,16 +2,20 @@
 name = "jaz-api-v0-2"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Matt <matthew.kimweli@allianz.com>"]
 readme = "README.md"
 packages = [{include = "jaz_api_v0"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = {extras = ["all"], version = "^0.100.0"}
-sqlalchemy = "^2.0.19"
+fastapi = "^0.100.0"
+uvicorn = "^0.23.1"
 psycopg2-binary = "^2.9.6"
+asyncpg = "^0.28.0"
+ormar = "^0.12.2"
 
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.4.1"
 
 [build-system]
 requires = ["poetry-core"]
