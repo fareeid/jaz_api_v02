@@ -39,3 +39,14 @@ async def create_person_item(async_db: AsyncSession, item: schemas.ItemCreate, p
     await async_db.commit()
     await async_db.refresh(db_item)
     return db_item
+
+async def create_note(async_db: AsyncSession, note: schemas.NoteIn):
+    db_note = models.Note(text=note.text, completed=note.completed)
+    async_db.add(db_note)
+    await async_db.commit()
+    await async_db.refresh(db_note)
+    return db_note
+
+async def get_note_by_id(async_db: AsyncSession, note_id: int):
+    result = await async_db.execute(select(models.Note).where(models.Note.id==note_id))
+    return result.scalars().all()

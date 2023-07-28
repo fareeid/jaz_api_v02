@@ -35,3 +35,18 @@ class Person(PersonBase):
 
     class Config:
         from_attributes = True
+
+
+# Testing async with model validation
+class NoteBase(BaseModel):
+    text: str
+    completed: bool   
+
+class NoteIn(NoteBase):
+    pass
+
+class Note(NoteBase):
+    id: int
+
+    class Config:
+        from_attributes = True

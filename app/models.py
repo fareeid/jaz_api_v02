@@ -11,7 +11,7 @@ class Person(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
 
-    items = relationship("Item", back_populates="owner")
+    items = relationship("Item", back_populates="owner", lazy="subquery")  # , uselist=False, backref="owner", , lazy="joined"
 
 class Item(Base):
     __tablename__ = "items"
@@ -22,3 +22,18 @@ class Item(Base):
     owner_id = Column(Integer, ForeignKey("persons.id"))
 
     owner = relationship("Person", back_populates="items")
+
+class Note(Base):
+    __tablename__ = "notes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    text = Column(String)
+    completed = Column(Boolean)
+
+# notes = sqlalchemy.Table(
+#     "notes",
+#     metadata,
+#     sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
+#     sqlalchemy.Column("text", sqlalchemy.String),
+#     sqlalchemy.Column("completed", sqlalchemy.Boolean),
+# )
