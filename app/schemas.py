@@ -17,7 +17,7 @@ class Item(ItemBase):
     owner_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class PersonBase(BaseModel):
@@ -25,7 +25,7 @@ class PersonBase(BaseModel):
 
 
 class PersonCreate(PersonBase):
-    password: str
+    hashed_password: str
 
 
 class Person(PersonBase):
@@ -34,4 +34,4 @@ class Person(PersonBase):
     items: list[Item] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True

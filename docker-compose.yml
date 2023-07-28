@@ -11,7 +11,7 @@ services:
     expose:  # new traefik
       - 8000
     environment:
-      - DATABASE_URL=postgresql://jaz_api_v02:jaz_api_v02@db:5432/jaz_api_v02
+      - DATABASE_URL=postgresql+asyncpg://jaz_api_v02:jaz_api_v02@db:5432/jaz_api_v02
     depends_on:
       - db
     labels: # new traefik

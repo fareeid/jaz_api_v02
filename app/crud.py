@@ -1,36 +1,41 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 
 from . import models, schemas
 
 
-def get_person(db: Session, person_id: int):
-    return db.query(models.Person).filter(models.Person.id == person_id).first()
+async def get_person(async_db: AsyncSession, person_id: int):
+    person = await async_db.get(models.Person, person_id)
+    return person
 
 
-def get_person_by_email(db: Session, email: str):
-    return db.query(models.Person).filter(models.Person.email == email).first()
+async def get_person_by_email(async_db: AsyncSession, email: str):
+    result = await async_db.execute(select(models.Person).where(models.Person.email==email))
+    return result.scalars().all()
 
 
-def get_persons(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Person).offset(skip).limit(limit).all()
+async def get_persons(async_db: AsyncSession, skip: int = 0, limit: int = 100):
+    result = await async_db.execute(select(models.Person))
+    return result.scalars().all()
 
 
-def create_person(db: Session, person: schemas.PersonCreate):
-    fake_hashed_password = person.password + "notreallyhashed"
+async def create_person(async_db: AsyncSession, person: schemas.PersonCreate):
+    fake_hashed_password = person.hashed_password + "notreallyhashed"
     db_person = models.Person(email=person.email, hashed_password=fake_hashed_password)
-    db.add(db_person)
-    db.commit()
-    db.refresh(db_person)
+    async_db.add(db_person)
+    await async_db.commit()
+    await async_db.refresh(db_person)
     return db_person
 
 
-def get_items(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Item).offset(skip).limit(limit).all()
+async def get_items(async_db: AsyncSession, skip: int = 0, limit: int = 100):
+    result = await async_db.execute(select(models.Item))
+    return result.scalars().all()
 
 
-def create_person_item(db: Session, item: schemas.ItemCreate, person_id: int):
+async def create_person_item(async_db: AsyncSession, item: schemas.ItemCreate, person_id: int):
     db_item = models.Item(**item.dict(), owner_id=person_id)
-    db.add(db_item)
-    db.commit()
-    db.refresh(db_item)
+    async_db.add(db_item)
+    await async_db.commit()
+    await async_db.refresh(db_item)
     return db_item
