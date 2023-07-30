@@ -28,6 +28,10 @@ class PersonCreate(PersonBase):
     hashed_password: str
 
 
+# password_regex = "((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})"
+# class User(BaseModel):
+#    password: str = Field(..., regex=password_regex)
+
 class Person(PersonBase):
     id: int
     is_active: bool

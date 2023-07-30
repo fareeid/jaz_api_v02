@@ -30,6 +30,9 @@ class Note(Base):
     text = Column(String)
     completed = Column(Boolean)
 
+    def __repr__(self):
+        return f"<Company(number='{self.id}', name='{self.text}', incorporated='{self.completed}')>"
+
 # notes = sqlalchemy.Table(
 #     "notes",
 #     metadata,
