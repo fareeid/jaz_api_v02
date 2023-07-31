@@ -3,7 +3,6 @@ from sqlalchemy import select
 
 from . import models, schemas
 
-
 async def get_person(async_db: AsyncSession, person_id: int):
     person = await async_db.get(models.Person, person_id)
     return person

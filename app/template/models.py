@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from .db import Base
+from ..db import Base
 
 class Person(Base):
     __tablename__ = "persons"
@@ -31,7 +31,7 @@ class Note(Base):
     completed = Column(Boolean)
 
     def __repr__(self):
-        return f"<Company(number='{self.id}', name='{self.text}', incorporated='{self.completed}')>"
+        return f"<Note(id='{self.id}', text='{self.text}', completed='{self.completed}')>"
 
 # notes = sqlalchemy.Table(
 #     "notes",
