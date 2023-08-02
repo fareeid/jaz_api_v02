@@ -10,6 +10,7 @@ from alembic import context
 
 from app.template.models import Person, Item, Note
 from app.songs_app.models import Song
+from app.auth.models import User
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
