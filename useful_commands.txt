@@ -21,7 +21,10 @@ docker-compose down -v
 docker-compose -f docker-compose.yml down -v                                                                      
 docker-compose up -d --build                                                                                      
 docker inspect                                                                                                    
-docker inspect f                                                                                                  
+docker inspect f            
+docker-compose exec web aerich init -t app.db.TORTOISE_ORM
+docker-compose exec web aerich init-db
+docker-compose exec web-db psql -U postgres                                                                                      
 
 --------------Poetry--------------
 poetry --info
