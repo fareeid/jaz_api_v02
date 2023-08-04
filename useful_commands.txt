@@ -24,7 +24,9 @@ docker inspect
 docker inspect f            
 docker-compose exec web aerich init -t app.db.TORTOISE_ORM
 docker-compose exec web aerich init-db
-docker-compose exec web-db psql -U postgres                                                                                      
+docker-compose exec web aerich upgrade
+docker-compose exec web-db psql -U postgres 
+docker-compose exec web-db python app/db.py
 
 --------------Poetry--------------
 poetry --info
