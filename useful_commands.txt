@@ -109,3 +109,13 @@ SELECT version();	--------------- Retrieve the current version of PostgreSQL ser
 \H	--------------- Switch the output to HTML format	 
 \q	--------------- Exit psql shell                                             
 
+----------------------Heroku---------------------
+heroku addons:create heroku-postgresql:mini --app hidden-reef-56486
+heroku addons:destroy postgresql-curly-30488
+docker build -f project/Dockerfile.prod -t registry.heroku.com/hidden-reef-56486/web ./project
+docker run --name fastapi-tdd -e PORT=8765 -e DATABASE_URL=sqlite://sqlite.db -p 5003:8765 registry.heroku.com/hidden-reef-56486/web:latest
+docker rm fastapi-tdd -f
+docker push registry.heroku.com/hidden-reef-56486/web:latest
+heroku container:release web --app hidden-reef-56486
+heroku run aerich upgrade --app hidden-reef-56486
+https://hidden-reef-56486.herokuapp.com/ping/
