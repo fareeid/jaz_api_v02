@@ -6,6 +6,7 @@ $Env:MyTestEnvVariable = $null  -------delete
 $env:Path.split(';') -----------View formatted path
 https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.3 ---------More info
 ni app/main.py requirements.txt
+where.exe flake8   Display the path of some command e.g. flake8
 
 -------------Docker--------------
 docker --version                                                                                                                         
@@ -28,6 +29,15 @@ docker-compose exec web aerich init-db
 docker-compose exec web aerich upgrade
 docker-compose exec web-db psql -U postgres 
 docker-compose exec web-db python app/db.py
+
+docker-compose exec web python -m pytest                                            -------------- normal run
+docker-compose exec web python -m pytest -p no:warnings                             -----------disable warnings
+docker-compose exec web python -m pytest -k "summary and not test_read_summary"     ----------------run only the tests with names that match the string expression
+docker-compose exec web python -m pytest -x                                         -----------stop the test session after the first failure
+docker-compose exec web python -m pytest -x --pdb                                   -------------enter PDB after first failure then end the test session
+docker-compose exec web python -m pytest --maxfail=2                                ---------------stop the test run after two failures
+docker-compose exec web python -m pytest -l                                         --------------show local variables in tracebacks
+docker-compose exec web python -m pytest --durations=2                              -------------list the 2 slowest tests
 
 --------------Poetry--------------
 poetry --info
