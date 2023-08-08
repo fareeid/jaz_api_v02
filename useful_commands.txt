@@ -133,3 +133,4 @@ docker push registry.heroku.com/hidden-reef-56486/web:latest
 heroku container:release web --app hidden-reef-56486
 heroku run aerich upgrade --app hidden-reef-56486
 https://hidden-reef-56486-d4846fb59f32.herokuapp.com/ping/
+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
