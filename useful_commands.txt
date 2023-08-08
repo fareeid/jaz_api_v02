@@ -134,3 +134,7 @@ heroku container:release web --app hidden-reef-56486
 heroku run aerich upgrade --app hidden-reef-56486
 https://hidden-reef-56486-d4846fb59f32.herokuapp.com/ping/
 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
+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
+docker build -f project/Dockerfile -t ghcr.io/fareeid/fastapi-tdd/summarizer:latest ./project
+docker login ghcr.io -u fareeid -p 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
+curl -v -u fareeid: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 https://ghcr.io/v2/
