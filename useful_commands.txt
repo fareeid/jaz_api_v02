@@ -24,12 +24,15 @@ docker-compose -f docker-compose.yml down -v
 docker-compose up -d --build                                                                                      
 docker inspect                                                                                                    
 docker inspect f            
+
+---------------Database commands--------------
 docker-compose exec web aerich init -t app.db.TORTOISE_ORM
 docker-compose exec web aerich init-db
 docker-compose exec web aerich upgrade
 docker-compose exec web-db psql -U postgres 
 docker-compose exec web-db python app/db.py
 
+---------------Testing and coverage-------------------
 docker-compose exec web python -m pytest                                            -------------- normal run
 docker-compose exec web python -m pytest -p no:warnings                             -----------disable warnings
 docker-compose exec web python -m pytest -k "summary and not test_read_summary"     ----------------run only the tests with names that match the string expression
@@ -38,6 +41,17 @@ docker-compose exec web python -m pytest -x --pdb                               
 docker-compose exec web python -m pytest --maxfail=2                                ---------------stop the test run after two failures
 docker-compose exec web python -m pytest -l                                         --------------show local variables in tracebacks
 docker-compose exec web python -m pytest --durations=2                              -------------list the 2 slowest tests
+docker-compose exec web python -m pytest --cov="."                                 ------------- Coverage report
+docker-compose exec web python -m pytest --cov="." --cov-report html
+
+--------Code quality and formatting------------
+docker-compose exec web flake8 .
+docker-compose exec web black . --check
+docker-compose exec web black . --diff
+docker-compose exec web black .
+docker-compose exec web isort . --check-only
+docker-compose exec web isort . --diff
+docker-compose exec web isort .
 
 --------------Poetry--------------
 poetry --info
