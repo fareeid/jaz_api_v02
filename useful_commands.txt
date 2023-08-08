@@ -138,3 +138,4 @@ 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
 docker build -f project/Dockerfile -t ghcr.io/fareeid/fastapi-tdd/summarizer:latest ./project
 docker login ghcr.io -u fareeid -p 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
 curl -v -u fareeid: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 https://ghcr.io/v2/
+https://github.com/orgs/community/discussions/26252
