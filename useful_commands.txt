@@ -65,7 +65,9 @@ poetry add sqlalchemy
 poetry add fastapi-users[sqlalchemy]                                                                              
 poetry show                                                                                                       
 poetry add alembic                                                                                                                                                                                  
-poetry add --group dev mypy                                                                                             
+poetry add --group dev mypy             
+poetry self add poetry-types
+poetry types add sqlalchemy
 
 -------------pip----------                                                                                                                            
 pip install --no-deps ormar   
