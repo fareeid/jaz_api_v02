@@ -126,6 +126,8 @@ SELECT version();	--------------- Retrieve the current version of PostgreSQL ser
 \q	--------------- Exit psql shell                                             
 
 ----------------------Heroku---------------------
+heroku token eb23d346-31e8-4f7d-b3f3-a81681ff1776
+longterm token 89fbf26e-9702-433a-9696-2cd92e8eb7bb
 heroku addons:create heroku-postgresql:mini --app hidden-reef-56486
 heroku addons:destroy postgresql-curly-30488
 docker build -f project/Dockerfile.prod -t registry.heroku.com/hidden-reef-56486/web ./project
