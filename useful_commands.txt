@@ -7,6 +7,7 @@ $env:Path.split(';') -----------View formatted path
 https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.3 ---------More info
 ni app/main.py requirements.txt
 where.exe flake8   Display the path of some command e.g. flake8
+$PROFILE | Select-Object *
 
 -------------Docker--------------
 docker --version                                                                                                                         
@@ -143,3 +144,6 @@ docker build -f project/Dockerfile -t ghcr.io/fareeid/fastapi-tdd/summarizer:lat
 docker login ghcr.io -u fareeid -p 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
 curl -v -u fareeid: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 https://ghcr.io/v2/
 https://github.com/orgs/community/discussions/26252
+
+docker build -f project/Dockerfile.prod -t web ./project                           -----------------Build an image tagged web
+docker run --name fastapi-tdd -e PORT=8765 -e DATABASE_URL=sqlite://sqlite.db -p 5003:8765 web:latest        -----------------run a container named fastapi-tdd from an image named web with tag latest
