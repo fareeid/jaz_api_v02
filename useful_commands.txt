@@ -147,3 +147,20 @@ https://github.com/orgs/community/discussions/26252
 
 docker build -f project/Dockerfile.prod -t web ./project                           -----------------Build an image tagged web
 docker run --name fastapi-tdd -e PORT=8765 -e DATABASE_URL=sqlite://sqlite.db -p 5003:8765 web:latest        -----------------run a container named fastapi-tdd from an image named web with tag latest
+
+
+https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli               -----------install
+az account set --subscription Allianz-dataplatform
+az provider register --namespace Microsoft.CloudShell
+az account list
+az provider show -n Microsoft.CloudShell
+az login
+az containerapp up --resource-group web-fastapi-aca-rg --name web-aca-app --ingress external --target-port 80 --source .
+az containerapp --help
+az containerapp up --help
+az account list-locations
+az account list-locations > locations.txt
+az configure --defaults location=northeurope
+az group delete --name web-fastapi-aca-rg
+docker run -it mcr.microsoft.com/azure-cli
+
