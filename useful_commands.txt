@@ -97,7 +97,8 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 ./conda init powershell -- then Restart the Powershell
 conda deactivate                                                                                                  
 conda remove help                                                                                                 
-conda env remove --name jaz_api_v0.2                                                                              
+conda remove --name fastapi3 --all
+conda env list
 conda deactivate                                                                                                  
 conda create --name jaz_api_v0.2 python=3.11                                                                      
 conda activate jaz_api_v0.2       
