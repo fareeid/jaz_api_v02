@@ -165,3 +165,12 @@ az configure --defaults location=northeurope
 az group delete --name web-fastapi-aca-rg
 docker run -it mcr.microsoft.com/azure-cli
 
+
+You can find nearly everything inside the Request object. You are able to get request body with request.json(), which will give you the parsed JSON as dictionary.
+[https://stackoverflow.com/questions/64379089/how-to-read-body-as-any-valid-json]https://stackoverflow.com/questions/64379089/how-to-read-body-as-any-valid-json
+
+from fastapi import Request, FastAPI
+
+@app.post("/dummypath")
+async def get_body(request: Request):
+    return await request.json()
