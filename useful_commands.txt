@@ -33,10 +33,16 @@ docker-compose exec web aerich upgrade
 docker-compose exec web-db psql -U postgres 
 docker-compose exec web-db python app/db.py
 
-----------Check container db ipaddress
+----------Check container db ipaddress-------------
 docker-compose exec db ifconfig
 docker-compose exec db apt-get update
 docker-compose exec db apt-get -y install net-tools
+
+---------Configure alembic for backend container---------------
+sqlalchemy.url = postgresql://postgres:changethis@db/app
+docker-compose exec backend alembic init migrations
+docker-compose exec backend alembic revision --autogenerate -m "init"
+docker-compose exec backend alembic upgrade head
 
 ---------------Testing and coverage-------------------
 docker-compose exec web python -m pytest                                            -------------- normal run
