@@ -44,6 +44,16 @@ docker-compose exec backend alembic init migrations
 docker-compose exec backend alembic revision --autogenerate -m "init"
 docker-compose exec backend alembic upgrade head
 
+---------Allow your project to be importable----------
+export PYTHONPATH=/app:/app/app
+echo $PYTHONPATH
+python app/initial_data.py
+
+-----REsolve Jinja2 dependency
+pip install markupsafe==2.0.1
+# pip install pipdeptree
+pipdeptree -r -p markupsafe
+
 ---------------Testing and coverage-------------------
 docker-compose exec web python -m pytest                                            -------------- normal run
 docker-compose exec web python -m pytest -p no:warnings                             -----------disable warnings
