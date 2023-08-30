@@ -33,6 +33,11 @@ docker-compose exec web aerich upgrade
 docker-compose exec web-db psql -U postgres 
 docker-compose exec web-db python app/db.py
 
+----------Check container db ipaddress
+docker-compose exec db ifconfig
+docker-compose exec db apt-get update
+docker-compose exec db apt-get -y install net-tools
+
 ---------------Testing and coverage-------------------
 docker-compose exec web python -m pytest                                            -------------- normal run
 docker-compose exec web python -m pytest -p no:warnings                             -----------disable warnings
