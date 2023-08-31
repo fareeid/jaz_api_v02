@@ -44,7 +44,7 @@ docker-compose exec backend alembic init migrations
 docker-compose exec backend alembic revision --autogenerate -m "init"
 docker-compose exec backend alembic upgrade head
 
----------Allow your project to be importable----------
+---------Allow your project to be importable---------- Run this in backend web
 export PYTHONPATH=/app:/app/app
 echo $PYTHONPATH
 python app/initial_data.py
