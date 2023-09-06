@@ -108,6 +108,8 @@ git status
 git config --global user.email "faridkim@gmail.com"                                                               
 git config --global user.name "Fareeid"                                                                           
 git clone https://github.com/fareeid/jaz_api_v02.git
+git fetch --all  --------------Fetch all branches
+git checkout uat_branch ----------sqitch to new branch
 
 --------------Fastapi--------------
 uvicorn app.main:app --reload --port=8001
