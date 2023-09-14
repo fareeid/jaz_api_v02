@@ -4,6 +4,8 @@ $Env:windir    --------------View
 $Env:Foo = 'An example'  ----------create
 $Env:MyTestEnvVariable = $null  -------delete
 $env:Path.split(';') -----------View formatted path
+$env:Path = 'C:\foo;' + $env:Path     -------------attach to the beginning
+$env:Path += ';C:\foo'                --------------attach to the end
 https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.3 ---------More info
 ni app/main.py requirements.txt
 where.exe flake8   Display the path of some command e.g. flake8
