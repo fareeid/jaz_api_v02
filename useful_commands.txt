@@ -200,3 +200,8 @@ from fastapi import Request, FastAPI
 @app.post("/dummypath")
 async def get_body(request: Request):
     return await request.json()
+
+Add Security Header
+https://github.com/tiangolo/fastapi/discussions/8548
+https://fastapi.tiangolo.com/advanced/middleware/
+https://github.com/tmotagam/Secweb
