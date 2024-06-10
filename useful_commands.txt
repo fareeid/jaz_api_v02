@@ -151,7 +151,10 @@ SELECT version();	--------------- Retrieve the current version of PostgreSQL ser
 \e	--------------- Edit command in your own editor	 
 \a	--------------- Switch from aligned to non-aligned column output	 
 \H	--------------- Switch the output to HTML format	 
-\q	--------------- Exit psql shell                                             
+\q	--------------- Exit psql shell
+
+-------------psq on AZ-----------------------------
+az postgres flexible-server db list --server-name jazk-postgres-fdb --resource-group jazk-pythoncontainer-rg --output table       ------------List databases in the flexible server 'jazk-postgres-fdb' in table format.
 
 ----------------------Heroku---------------------
 heroku token eb23d346-31e8-4f7d-b3f3-a81681ff1776
