@@ -1,0 +1,24 @@
+To extract sql statment from create function:
+
+    async def create_v1(self, oracle_db: AsyncSession, *, obj_in: CreateSchemaType) -> ModelType:
+        # Convert the Pydantic model to a dictionary
+        obj_in_data = obj_in.dict()
+        db_obj = self.model(**obj_in_data)  # Create the SQLAlchemy model instance
+        
+        # Add the new object to the session
+        oracle_db.add(db_obj)
+        
+        # Construct the Insert statement
+        stmt = insert(self.model).values(**obj_in_data)
+        
+        # Compile the statement with bound parameters
+        compiled_stmt = stmt.compile(dialect=oracle.dialect(), compile_kwargs={"literal_binds": True})
+        sql_statement = str(compiled_stmt)
+        
+        print(sql_statement)  # This will print the SQL with bound parameters
+        
+        # Commit and refresh the instance
+        await oracle_db.commit()
+        await oracle_db.refresh(db_obj)
+        
+        return db_obj
