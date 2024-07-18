@@ -30,3 +30,54 @@ To extract sql statment from create function:
         # Compile the statement with bound parameters
         compiled_stmt = stmt.compile(dialect=oracle.dialect(), compile_kwargs={"literal_binds": True})
         sql_statement = str(compiled_stmt)
+
+
+To listen for the sql statements use the sqlalchemy event 
+
+from sqlalchemy import event
+from sqlalchemy.orm import Session
+from fastapi.encoders import jsonable_encoder
+from typing import Any, Type, TypeVar, Union
+
+ModelType = TypeVar("ModelType")
+UpdateSchemaType = TypeVar("UpdateSchemaType")
+
+class CRUDBase:
+    def __init__(self, model: Type[ModelType]):
+        self.model = model
+
+    def update(
+        self,
+        non_async_oracle_db: Session,
+        *,
+        db_obj: ModelType,
+        obj_in: Union[UpdateSchemaType, dict[str, Any]]
+    ) -> ModelType:
+        obj_data = jsonable_encoder(db_obj)
+        if isinstance(obj_in, dict):
+            update_data = obj_in
+        else:
+            update_data = obj_in.model_dump(exclude_unset=True)
+
+        for field in obj_data:
+            if field in update_data:
+                setattr(db_obj, field, update_data[field])
+
+        non_async_oracle_db.add(db_obj)
+
+        def before_flush(session, flush_context, instances):
+            for instance in session.dirty:
+                if isinstance(instance, self.model):
+                    for key, value in update_data.items():
+                        if hasattr(instance, key):
+                            setattr(instance, key, value)
+                    update_stmt = instance.__table__.update().where(instance.__table__.c.id == instance.id).values(**update_data)
+                    compiled_stmt = update_stmt.compile(dialect=oracle.dialect(), compile_kwargs={"literal_binds": True})
+                    sql_statement = str(compiled_stmt)
+                    print(sql_statement)
+
+        event.listen(non_async_oracle_db, 'before_flush', before_flush)
+
+        non_async_oracle_db.commit()
+        non_async_oracle_db.refresh(db_obj)
+        return db_obj
