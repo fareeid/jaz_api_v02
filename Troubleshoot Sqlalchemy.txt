@@ -22,3 +22,11 @@ To extract sql statment from create function:
         await oracle_db.refresh(db_obj)
         
         return db_obj
+
+
+        # Construct the update statement
+        stmt = update(self.model).where(self.model.id == db_obj.id).values(**update_data)
+        
+        # Compile the statement with bound parameters
+        compiled_stmt = stmt.compile(dialect=oracle.dialect(), compile_kwargs={"literal_binds": True})
+        sql_statement = str(compiled_stmt)
