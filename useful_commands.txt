@@ -12,6 +12,12 @@ ni app/main.py requirements.txt
 where.exe flake8   Display the path of some command e.g. flake8
 $PROFILE | Select-Object *
 
+---------Linux CLI - Environment variables
+env | grep '^PREM' -----------------list all environment variables that start with 'PREM' (or user printenv | grep '^P')
+echo $PREMIA_DB  ------------------- Print single env variable
+export PREMIA_DB=p11tz --------------- Set env variable----------------
+
+
 -------------Docker--------------
 docker --version                                                                                                                         
 docker-compose --version                                                                                                                 
