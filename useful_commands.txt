@@ -1,4 +1,7 @@
-﻿-------------Powershell Commnand-----------
+-------------Activate windows 11 for Free------------
+https://www.guidingtech.com/how-to-activate-windows-11-for-free/
+
+-------------Powershell Commnand-----------
 Environment variables
 $Env:windir    --------------View
 $Env:Foo = 'An example'  ----------create
